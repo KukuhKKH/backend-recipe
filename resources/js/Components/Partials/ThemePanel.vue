@@ -82,35 +82,35 @@
                         <div class="app-theme-cover">
                               <div class="app-theme-cover-item active">
                                  <a href="javascript:;" class="app-theme-cover-link"
-                                    style="background-image: url(assets/img/cover/cover-thumb-1.jpg);"
+                                    style="background-image: url(/assets/img/cover/cover-thumb-1.jpg);"
                                     data-theme-cover-class="" data-toggle="theme-cover-selector"
                                     data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body"
                                     data-bs-title="Default">&nbsp;</a>
                               </div>
                               <div class="app-theme-cover-item">
                                  <a href="javascript:;" class="app-theme-cover-link"
-                                    style="background-image: url(assets/img/cover/cover-thumb-2.jpg);"
+                                    style="background-image: url(/assets/img/cover/cover-thumb-2.jpg);"
                                     data-theme-cover-class="bg-cover-2" data-toggle="theme-cover-selector"
                                     data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body"
                                     data-bs-title="Cover 2">&nbsp;</a>
                               </div>
                               <div class="app-theme-cover-item">
                                  <a href="javascript:;" class="app-theme-cover-link"
-                                    style="background-image: url(assets/img/cover/cover-thumb-3.jpg);"
+                                    style="background-image: url(/assets/img/cover/cover-thumb-3.jpg);"
                                     data-theme-cover-class="bg-cover-3" data-toggle="theme-cover-selector"
                                     data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body"
                                     data-bs-title="Cover 3">&nbsp;</a>
                               </div>
                               <div class="app-theme-cover-item">
                                  <a href="javascript:;" class="app-theme-cover-link"
-                                    style="background-image: url(assets/img/cover/cover-thumb-4.jpg);"
+                                    style="background-image: url(/assets/img/cover/cover-thumb-4.jpg);"
                                     data-theme-cover-class="bg-cover-4" data-toggle="theme-cover-selector"
                                     data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body"
                                     data-bs-title="Cover 4">&nbsp;</a>
                               </div>
                               <div class="app-theme-cover-item">
                                  <a href="javascript:;" class="app-theme-cover-link"
-                                    style="background-image: url(assets/img/cover/cover-thumb-5.jpg);"
+                                    style="background-image: url(/assets/img/cover/cover-thumb-5.jpg);"
                                     data-theme-cover-class="bg-cover-5" data-toggle="theme-cover-selector"
                                     data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-container="body"
                                     data-bs-title="Cover 5">&nbsp;</a>

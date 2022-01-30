@@ -36,7 +36,7 @@
                     <div class="menu-img online">
                         <img src="/assets/img/user/profile.jpg" height="60px" />
                     </div>
-                    <div class="menu-text d-sm-block d-none"><span class="__cf_email__">Kukuh Rahmadani</span>
+                    <div class="menu-text d-sm-block d-none"><span class="__cf_email__">{{ user.user.name }}</span>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end me-lg-3 fs-11px mt-1">
@@ -51,6 +51,9 @@
 
 <script>
    export default {
+        props: {
+            user: Object,
+        },
 
    }
 </script>

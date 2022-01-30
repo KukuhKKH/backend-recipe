@@ -11,9 +11,11 @@ class CategoryController extends Controller
 {
 
     private $categoryRepository;
+    private $limit;
 
     public function __construct(CategoryRepository $categoryRepository) {
         $this->categoryRepository = $categoryRepository;
+        $this->limit = 10;
     }
 
     /**
@@ -21,10 +23,20 @@ class CategoryController extends Controller
      *
      * @return void
      */
-     public function index() {
-        $category = $this->categoryRepository->all();
+    public function index(Request $request) {
+        $categories = $this->categoryRepository->all($request->all(), $this->limit);
         return Inertia::render('Category/Index', [
-            'category' => $category
+            'categories' => $categories
         ]);
-     }
+    }
+
+    /**
+     * create
+     *
+     * @return void
+     */
+    public function create() {
+        return Inertia::render('Category/Create');
+    }
+
 }

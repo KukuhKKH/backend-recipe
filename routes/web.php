@@ -19,8 +19,8 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'dashboard'], function() {
+Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
     Route::group(['prefix' => 'master'], function() {
-        Route::get('category', [CategoryController::class, 'index'])->name('category.index');
+        Route::resource("category", CategoryController::class);
     });
 });

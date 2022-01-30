@@ -4,7 +4,7 @@
          <div class="menu">
             <div class="menu-header">Master</div>
             <div class="menu-item">
-                <a href="index-2.html" class="menu-link">
+                <a :href="`/dashboard/master/category`" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-list"></i></span>
                     <span class="menu-text">Category</span>
                 </a>

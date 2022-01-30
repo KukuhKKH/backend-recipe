@@ -1,16 +1,66 @@
 <template>
-    <div>
-        <h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, eos suscipit molestias quasi dolor in cumque id dicta porro vero expedita assumenda obcaecati enim numquam blanditiis aperiam quod perspiciatis quas ad laudantium fuga? Iure hic deleniti doloremque animi officia. Tenetur, eaque molestiae ex quas assumenda voluptate ea nobis ipsa adipisci vitae deserunt explicabo aliquid odit blanditiis officia voluptatem. Quam fuga perferendis eius soluta nesciunt ducimus libero ipsa minima, perspiciatis quaerat? Eligendi, delectus. Optio mollitia beatae molestiae tempora autem obcaecati aperiam amet incidunt saepe est adipisci et inventore error neque quos magnam sit, voluptatem, aut laudantium rem, aliquid id quibusdam sunt.</h1>
+    <h1 class="page-header">
+        Kateogri
+    </h1>
+    <hr class="mb-4">
+    <div class="card">
+        <div class="card-header">
+            <a :href="`/dashboard/master/category/create`" class="btn btn-primary"><i class="far fa-plus"></i> Tambah Kateogri</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Gambar</th>
+                        <th scope="col">Rekomendasi</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="category in categories.data" :key="category.id">
+                        <th scope="row">1</th>
+                        <th scope="row">{{ category.name }}</th>
+                        <th scope="row">{{ category.image_url }}</th>
+                        <th scope="row">
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" @click="changeRecomendation" :checked="category.recomendation">
+                            </div>
+                        </th>
+                        <td scope="row">
+                            <a :href="`/dashboard/master/category/${category.id}/edit`" class="btn btn-sm btn-warning"><i class="far fa-pencil"></i></a>
+                            <button @click="destroy" class="btn btn-sm btn-danger"><i class="far fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <app-pagination class="mt-2" :links="categories.links" />
+        </div>
     </div>
 </template>
 
 <script>
     import LayoutApp from '../../Layouts/App.vue'
+    import Pagination from '../../Components/Shared/Pagination'
 
     export default {
         layout: LayoutApp,
         props: {
-            posts: Array
+            categories: Array
+        },
+        methods: {
+            destroy() {
+                if (confirm('Are you sure you want to delete this organization?')) {
+                    this.$inertia.delete(`/dashboard/master/category/${this.organization.id}`)
+                }
+            },
+            changeRecomendation() {
+
+            }
+        },
+        components: {
+            'app-pagination' : Pagination
         }
     }
 </script>

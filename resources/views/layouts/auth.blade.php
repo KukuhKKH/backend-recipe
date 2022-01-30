@@ -10,7 +10,7 @@
 
     <link href="{{ asset("assets/css/vendor.min.css") }}" rel="stylesheet" />
     <link href="{{ asset("assets/css/app.min.css") }}" rel="stylesheet" />
-
+    @yield('css')
 </head>
 
 <body class='pace-top'>
@@ -19,9 +19,9 @@
         @yield('content')
     </div>
 
-
     <script src="{{ asset("assets/js/vendor.min.js") }}" type="540fdc04f56ad095af2eb37b-text/javascript"></script>
     <script src="{{ asset("assets/js/app.min.js") }}" type="540fdc04f56ad095af2eb37b-text/javascript"></script>
+    @yield('js')
 </body>
 
 </html>

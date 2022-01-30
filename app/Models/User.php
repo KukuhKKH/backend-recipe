@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -20,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'username',
+        'image',
         'email',
         'password',
     ];
@@ -42,4 +44,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function setUsernameAttribute($value) {
+        $this->attributes['username'] = Str::lower(Str::replace(" ", "", $value));
+    }
+
+    public function getImageUrlAttribute() {
+        if($this->image) {
+            $image = asset('upload/image/categories/' . $this->image);
+            if (file_exists($image)) {
+                return $image;
+            }
+            $image = asset('storage/upload/image/categories/' . $this->image);
+            if (file_exists($image)) {
+                return $image;
+            }
+        }
+        return null;
+    }
 }
