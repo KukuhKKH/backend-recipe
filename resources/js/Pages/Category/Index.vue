@@ -5,7 +5,7 @@
     <hr class="mb-4">
     <div class="card">
         <div class="card-header">
-            <a :href="`/dashboard/master/category/create`" class="btn btn-primary"><i class="far fa-plus"></i> Tambah Kateogri</a>
+            <Link :href="route('category.create')" class="btn btn-primary"><i class="far fa-plus"></i> Tambah Kateogri</Link>
         </div>
         <div class="card-body">
             <table class="table table-hover">
@@ -22,15 +22,17 @@
                     <tr v-for="category in categories.data" :key="category.id">
                         <th scope="row">1</th>
                         <th scope="row">{{ category.name }}</th>
-                        <th scope="row">{{ category.image_url }}</th>
+                        <th scope="row">
+                            <img :src="category.image_url" :alt="category.name" class="img-fluid img-thumbnail">
+                        </th>
                         <th scope="row">
                             <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" @click="changeRecomendation" :checked="category.recomendation">
+                                <input type="checkbox" class="form-check-input" @click="changeRecomendation(category.id)" :checked="category.recomendation">
                             </div>
                         </th>
                         <td scope="row">
-                            <a :href="`/dashboard/master/category/${category.id}/edit`" class="btn btn-sm btn-warning"><i class="far fa-pencil"></i></a>
-                            <button @click="destroy" class="btn btn-sm btn-danger"><i class="far fa-trash"></i></button>
+                            <Link :href="route('category.edit', category.id)" class="btn btn-sm btn-warning"><i class="fas fa-pencil"></i></Link>
+                            <button @click="destroy(category.id)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -41,6 +43,7 @@
 </template>
 
 <script>
+    import { Link } from '@inertiajs/inertia-vue3'
     import LayoutApp from '../../Layouts/App.vue'
     import Pagination from '../../Components/Shared/Pagination'
 
@@ -50,17 +53,35 @@
             categories: Array
         },
         methods: {
-            destroy() {
-                if (confirm('Are you sure you want to delete this organization?')) {
-                    this.$inertia.delete(`/dashboard/master/category/${this.organization.id}`)
-                }
+            destroy(id) {
+                this.$swal({
+                    title: 'Apakah Anda Yakin ?',
+                    text: "Ingin menghapus data ini!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Tidak',
+                    confirmButtonText: 'Ya !'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$inertia.delete(route('category.destroy', id))
+                    }
+                })
             },
-            changeRecomendation() {
-
+            changeRecomendation(id) {
+                this.$inertia.put(route("category.change", id))
             }
         },
         components: {
-            'app-pagination' : Pagination
+            'app-pagination' : Pagination,
+            'Link' : Link
         }
     }
 </script>
+
+<style scoped>
+    .img-fluid {
+        max-height: 100px;
+    }
+</style>

@@ -2,12 +2,19 @@
    <div id="sidebar" class="app-sidebar">
       <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
          <div class="menu">
+            <div class="menu-header">Navigation</div>
+            <div class="menu-item">
+                <Link :href="route('dashboard.index')" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-cpu"></i></span>
+                    <span class="menu-text">Dashboard</span>
+                </Link>
+            </div>
             <div class="menu-header">Master</div>
             <div class="menu-item">
-                <a :href="`/dashboard/master/category`" class="menu-link">
+                <Link :href="route('category.index')" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-list"></i></span>
                     <span class="menu-text">Category</span>
-                </a>
+                </Link>
             </div>
          </div>
 
@@ -21,7 +28,10 @@
 </template>
 
 <script>
-   export default {
-
-   }
+    import { Link } from '@inertiajs/inertia-vue3'
+    export default {
+        components: {
+            Link
+        }
+    }
 </script>

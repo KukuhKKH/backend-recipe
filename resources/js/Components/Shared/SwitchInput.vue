@@ -1,7 +1,7 @@
 <template>
-    <div :class="$attrs.class" class="mt-1">
-        <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
-        <input :id="id" ref="input" v-bind="{ ...$attrs, class: null }" class="form-control" :class="{ 'is-invalid': error }" :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" />
+    <div :class="$attrs.class" class="form-check form-switch mt-1">
+        <input ref="input" type="checkbox" class="form-check-input" :id="id" :class="{ 'is-invalid': error }" v-bind="{ ...$attrs, class: null }" :value="modelValue" @input="$emit('update:modelValue', $event.target.checked)" :checked="modelValue == 1">
+        <label v-if="label" class="form-check-label" :for="id">{{ label }}:</label>
         <div v-if="error" class="form-error invalid-feedback">{{ error }}</div>
     </div>
 </template>
@@ -17,13 +17,9 @@ export default {
                 return `text-input-${uuid()}`
             }
         },
-        type: {
-            type: String,
-            default: 'text'
-        },
         error: String,
         label: String,
-        modelValue: String
+        modelValue: Boolean
     },
     emits: ['update:modelValue'],
     methods: {

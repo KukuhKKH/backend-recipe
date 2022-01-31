@@ -13,9 +13,7 @@ trait ImageHandlerTrait {
     }
 
 	public function uploadImage($image, $path) {
-        $imageNameOriginal = $image->getClientOriginalName();
-        $imageNameOriginal = pathinfo($imageNameOriginal, PATHINFO_FILENAME);
-        $imageName = time() . '-' . Str::slug($imageNameOriginal) . "." . $image->getClientOriginalExtension();
+        $imageName = time() . "." . $image->getClientOriginalExtension();
         if($this->type == 'public') {
             if (!is_dir(public_path($path))) {
                 mkdir(public_path($path), 0777, $rekursif = true);
@@ -35,7 +33,8 @@ trait ImageHandlerTrait {
                 @unlink($image);
             }
         } else {
-            Storage::delete($path . $imageName);
+            $image = $path . $imageName;
+            unlink(storage_path(Str::replace("/", "\\", $image)));
         }
     }
 }

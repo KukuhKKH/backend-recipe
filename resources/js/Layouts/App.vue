@@ -4,8 +4,8 @@
        <app-sidebar/>
 
         <div id="content" class="app-content">
-            <app-flash-message/>
             <app-breadcrumb/>
+            <app-flash-message/>
             <slot/>
         </div>
 

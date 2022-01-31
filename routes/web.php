@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect(route('dashboard.index'));
+})->name('home');
 
 
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::group(['prefix' => 'master'], function() {
-        Route::resource("category", CategoryController::class);
+        Route::resource("category", CategoryController::class)->except('show');
+        Route::put('category/change-recomendation/{id}', [CategoryController::class, 'changeRecomendation'])->name('category.change');
     });
 });
