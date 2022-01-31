@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     public function __construct(CategoryRepository $categoryRepository) {
         $this->categoryRepository = $categoryRepository;
-        $this->limit = 1;
+        $this->limit = 10;
     }
 
     /**
