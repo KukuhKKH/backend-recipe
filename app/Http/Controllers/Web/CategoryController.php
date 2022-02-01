@@ -28,6 +28,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request) {
         $categories = $this->categoryRepository->all($request->all(), $this->limit);
+        // return $categories;
         return Inertia::render('Category/Index', [
             'categories' => $categories,
             'filters' => $request->all('search', 'trashed')

@@ -128,7 +128,7 @@
                                     <div class="d-flex">
                                     <div class="position-relative mb-2">
                                         <div class="bg-center bg-cover bg-no-repeat w-80px h-60px"
-                                            style="background-image: url(assets/img/dashboard/product-1.jpeg);">
+                                            style="background-image: url(assets/img/dashboard/product-1.jpg);">
                                         </div>
                                         <div class="position-absolute top-0 start-0">
                                             <span
@@ -168,7 +168,7 @@
                                     <div class="d-flex mb-2 align-items-center">
                                     <div class="position-relative">
                                         <div class="bg-center bg-cover bg-no-repeat w-80px h-60px"
-                                            style="background-image: url(assets/img/dashboard/product-2.jpeg);">
+                                            style="background-image: url(assets/img/dashboard/product-2.jpg);">
                                         </div>
                                         <div class="position-absolute top-0 start-0">
                                             <span
@@ -209,7 +209,7 @@
                                     <div class="d-flex mb-2 align-items-center">
                                     <div class="position-relative">
                                         <div class="bg-center bg-cover bg-no-repeat w-80px h-60px"
-                                            style="background-image: url(assets/img/dashboard/product-3.jpeg);">
+                                            style="background-image: url(assets/img/dashboard/product-3.jpg);">
                                         </div>
                                         <div class="position-absolute top-0 start-0">
                                             <span
@@ -250,7 +250,7 @@
                                     <div class="d-flex mb-2 align-items-center">
                                     <div class="position-relative">
                                         <div class="bg-center bg-cover bg-no-repeat w-80px h-60px"
-                                            style="background-image: url(assets/img/dashboard/product-4.jpeg);">
+                                            style="background-image: url(assets/img/dashboard/product-4.jpg);">
                                         </div>
                                         <div class="position-absolute top-0 start-0">
                                             <span
@@ -291,7 +291,7 @@
                                     <div class="d-flex align-items-center">
                                     <div class="position-relative">
                                         <div class="bg-center bg-cover bg-no-repeat w-80px h-60px"
-                                            style="background-image: url(assets/img/dashboard/product-5.jpeg);">
+                                            style="background-image: url(assets/img/dashboard/product-5.jpg);">
                                         </div>
                                         <div class="position-absolute top-0 start-0">
                                             <span

@@ -46,19 +46,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ["image_url"];
+
     public function setUsernameAttribute($value) {
         $this->attributes['username'] = Str::lower(Str::replace(" ", "", $value));
     }
 
     public function getImageUrlAttribute() {
         if($this->image) {
-            $image = asset('upload/image/categories/' . $this->image);
-            if (file_exists($image)) {
-                return $image;
-            }
-            $image = asset('storage/upload/image/categories/' . $this->image);
-            if (file_exists($image)) {
-                return $image;
+            if($this->image) {
+                $image = public_path(Str::replace("/", "\\", $this->image));
+                if (file_exists($image)) {
+                    return asset( $this->image);
+                }
+                $image = storage_path('app\\public\\' . Str::replace("/", "\\", $this->image));
+                if (file_exists($image)) {
+                    return asset('storage/' . $this->image);
+                }
             }
         }
         return null;

@@ -8,7 +8,7 @@
         <img :src="category.image_url" :alt="category.name" class="img-fluid img-thumbnail" style="max-height: 400px">
 
         <div class="float-end">
-            <app-loading-button :loading="form.processing" class="btn btn-primary mx-2" type="submit">Ubah</app-loading-button>
+            <app-loading-button :loading="form.processing" class="btn btn-theme mx-2" type="submit">Ubah</app-loading-button>
             <Link :href="route('category.index')" class="btn btn-warning">Kembali</Link>
         </div>
     </form>

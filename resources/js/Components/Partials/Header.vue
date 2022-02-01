@@ -40,8 +40,8 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end me-lg-3 fs-11px mt-1">
-                    <a class="dropdown-item d-flex align-items-center" href="#">LOGOUT <i
-                        class="bi bi-toggle-off ms-auto text-theme fs-16px my-n1"></i></a>
+                    <Link class="dropdown-item d-flex align-items-center" href="/logout" method="POST" replace>LOGOUT <i
+                        class="bi bi-toggle-off ms-auto text-theme fs-16px my-n1"></i></Link>
                 </div>
             </div>
         </div>
@@ -50,10 +50,13 @@
 </template>
 
 <script>
-   export default {
+    import { Link } from '@inertiajs/inertia-vue3'
+    export default {
+       components: {
+           Link
+       },
         props: {
             user: Object,
-        },
-
-   }
+        }
+    }
 </script>

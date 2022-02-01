@@ -1,12 +1,12 @@
 <template>
     <h1 class="page-header">
-        Kateogri
+        Tag
     </h1>
     <hr class="mb-4">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <div>
-                <Link :href="route('category.create')" class="btn btn-theme"><i class="far fa-plus"></i> Tambah Kateogri</Link>
+                <Link :href="route('tag.create')" class="btn btn-theme"><i class="far fa-plus"></i> Tambah Tag</Link>
             </div>
             <div>
                 <app-search-filter v-model="form.search" @reset="reset"/>
@@ -18,31 +18,21 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Gambar</th>
-                        <th scope="col">Rekomendasi</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="category in categories.data" :key="category.id">
-                        <app-numbering-table scope="row" v-bind:array="categories" v-bind:object="category"/>
-                        <th scope="row">{{ category.name }}</th>
-                        <th scope="row">
-                            <img :src="category.image_url" alt="404 Not Found" class="img-fluid img-thumbnail">
-                        </th>
-                        <th scope="row">
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" @click="changeRecomendation(category.id)" :checked="category.recomendation">
-                            </div>
-                        </th>
+                    <tr v-for="tag in tags.data" :key="tag.id">
+                        <app-numbering-table scope="row" :array="tags" :object="tag" />
+                        <th scope="row">{{ tag.name }}</th>
                         <td scope="row">
-                            <Link :href="route('category.edit', category.id)" class="btn btn-sm btn-warning"><i class="fas fa-pencil"></i></Link>
-                            <button @click="destroy(category.id)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            <Link :href="route('tag.edit', tag.id)" class="btn btn-sm btn-warning"><i class="fas fa-pencil"></i></Link>
+                            <button @click="destroy(tag.id)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <app-pagination class="mt-2" :links="categories.links" />
+            <app-pagination class="mt-2" :links="tags.links" />
         </div>
     </div>
 </template>
@@ -60,7 +50,7 @@
     export default {
         layout: LayoutApp,
         props: {
-            categories: Array,
+            tags: Array,
             filters: Object
         },
         data() {
@@ -83,12 +73,9 @@
                     confirmButtonText: 'Ya !'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        this.$inertia.delete(route('category.destroy', id))
+                        this.$inertia.delete(route('tag.destroy', id))
                     }
                 })
-            },
-            changeRecomendation(id) {
-                this.$inertia.put(route("category.change", id))
             },
             reset() {
                 this.form = mapValues(this.form, () => null)
@@ -104,15 +91,9 @@
             form: {
                 deep: true,
                 handler: throttle(function() {
-                    this.$inertia.get(route('category.index'), pickBy(this.form), { preserveState: true })
+                    this.$inertia.get(route('tag.index'), pickBy(this.form), { preserveState: true })
                 }, 150)
             }
         }
     }
 </script>
-
-<style scoped>
-    .img-fluid {
-        max-height: 100px;
-    }
-</style>

@@ -1,7 +1,7 @@
 <template>
    <div class="app">
        <app-header v-bind:user="auth"/>
-       <app-sidebar/>
+       <app-sidebar v-bind:user="auth"/>
 
         <div id="content" class="app-content">
             <app-breadcrumb/>

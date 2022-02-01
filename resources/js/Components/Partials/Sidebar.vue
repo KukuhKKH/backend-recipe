@@ -3,17 +3,29 @@
       <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
          <div class="menu">
             <div class="menu-header">Navigation</div>
-            <div class="menu-item">
+            <div class="menu-item" :class="isUrl('dashboard') ? 'active' : ''">
                 <Link :href="route('dashboard.index')" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-cpu"></i></span>
                     <span class="menu-text">Dashboard</span>
                 </Link>
             </div>
             <div class="menu-header">Master</div>
-            <div class="menu-item">
+            <div class="menu-item" :class="isUrl('dashboard/master/category') ? 'active' : ''">
                 <Link :href="route('category.index')" class="menu-link">
                     <span class="menu-icon"><i class="bi bi-list"></i></span>
                     <span class="menu-text">Category</span>
+                </Link>
+            </div>
+            <div class="menu-item" :class="isUrl('dashboard/master/tag') ? 'active' : ''">
+                <Link :href="route('tag.index')" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-tags"></i></span>
+                    <span class="menu-text">Tag</span>
+                </Link>
+            </div>
+            <div class="menu-item" :class="isUrl('dashboard/master/user') ? 'active' : ''">
+                <Link :href="route('user.index')" class="menu-link">
+                    <span class="menu-icon"><i class="fas fa-users"></i></span>
+                    <span class="menu-text">Pengguna</span>
                 </Link>
             </div>
          </div>
@@ -32,6 +44,15 @@
     export default {
         components: {
             Link
+        },
+        props: {
+            user: Object,
+        },
+        methods: {
+            isUrl(urls) {
+                let currentUrl = this.$page.url.substr(1)
+                return currentUrl === urls
+            },
         }
     }
 </script>

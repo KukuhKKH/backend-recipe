@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Tag;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryUpdateRequest extends FormRequest
+class TagUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class CategoryUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:191|unique:categories,name,' . request()->category,
-            'image' => 'nullable|file|mimes:png,jpg,jpeg,gif|max:2048',
-            'recomendation' => 'required|boolean'
+            'name' => 'required|max:191|unique:tags,name,' . request()->tag
         ];
     }
 }

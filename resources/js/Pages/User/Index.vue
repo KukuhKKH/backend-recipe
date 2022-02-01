@@ -1,12 +1,12 @@
 <template>
     <h1 class="page-header">
-        Kateogri
+        Pengguna
     </h1>
     <hr class="mb-4">
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <div>
-                <Link :href="route('category.create')" class="btn btn-theme"><i class="far fa-plus"></i> Tambah Kateogri</Link>
+                <Link :href="route('user.create')" class="btn btn-theme"><i class="far fa-plus"></i> Tambah Pengguna</Link>
             </div>
             <div>
                 <app-search-filter v-model="form.search" @reset="reset"/>
@@ -19,30 +19,24 @@
                         <th scope="col">#</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Gambar</th>
-                        <th scope="col">Rekomendasi</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="category in categories.data" :key="category.id">
-                        <app-numbering-table scope="row" v-bind:array="categories" v-bind:object="category"/>
-                        <th scope="row">{{ category.name }}</th>
+                    <tr v-for="user in users.data" :key="user.id">
+                        <app-numbering-table scope="row" :array="users" :object="user" />
+                        <th scope="row">{{ user.name }}</th>
                         <th scope="row">
-                            <img :src="category.image_url" alt="404 Not Found" class="img-fluid img-thumbnail">
-                        </th>
-                        <th scope="row">
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" @click="changeRecomendation(category.id)" :checked="category.recomendation">
-                            </div>
+                            <img :src="user.image_url" alt="404 Not Found" class="img-fluid img-thumbnail">
                         </th>
                         <td scope="row">
-                            <Link :href="route('category.edit', category.id)" class="btn btn-sm btn-warning"><i class="fas fa-pencil"></i></Link>
-                            <button @click="destroy(category.id)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            <Link :href="route('user.edit', user.id)" class="btn btn-sm btn-warning"><i class="fas fa-pencil"></i></Link>
+                            <button @click="destroy(user.id)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <app-pagination class="mt-2" :links="categories.links" />
+            <app-pagination class="mt-2" :links="users.links" />
         </div>
     </div>
 </template>
@@ -60,7 +54,7 @@
     export default {
         layout: LayoutApp,
         props: {
-            categories: Array,
+            users: Array,
             filters: Object
         },
         data() {
@@ -83,16 +77,13 @@
                     confirmButtonText: 'Ya !'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        this.$inertia.delete(route('category.destroy', id))
+                        this.$inertia.delete(route('user.destroy', id))
                     }
                 })
             },
-            changeRecomendation(id) {
-                this.$inertia.put(route("category.change", id))
-            },
             reset() {
                 this.form = mapValues(this.form, () => null)
-            },
+            }
         },
         components: {
             'app-pagination' : Pagination,
@@ -104,7 +95,7 @@
             form: {
                 deep: true,
                 handler: throttle(function() {
-                    this.$inertia.get(route('category.index'), pickBy(this.form), { preserveState: true })
+                    this.$inertia.get(route('user.index'), pickBy(this.form), { preserveState: true })
                 }, 150)
             }
         }
