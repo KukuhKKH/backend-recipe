@@ -9,6 +9,13 @@
                     <span class="menu-text">Dashboard</span>
                 </Link>
             </div>
+            <div class="menu-header">Resep Masakan</div>
+            <div class="menu-item" :class="isUrl('dashboard/recipe/post') ? 'active' : ''">
+                <Link :href="route('post.index')" class="menu-link">
+                    <span class="menu-icon"><i class="fas fa-hotdog"></i></span>
+                    <span class="menu-text">Resep</span>
+                </Link>
+            </div>
             <div class="menu-header">Master</div>
             <div class="menu-item" :class="isUrl('dashboard/master/category') ? 'active' : ''">
                 <Link :href="route('category.index')" class="menu-link">

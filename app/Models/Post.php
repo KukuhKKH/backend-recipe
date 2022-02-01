@@ -2,11 +2,56 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $fillable = ["user_id", "category_id", "title", "sub_title", "slug", "time", "time_unit", "total", "total_unit", "image", "level"];
+    protected $appends = ['image_url'];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'recomendation' => 'integer',
+    ];
+
+    public static function boot() {
+        parent::boot();
+        self::saving(function($model) {
+            $model->slug = Str::slug($model->name);
+        });
+    }
+
+    public function getImageUrlAttribute() {
+        if($this->image) {
+            $image = public_path(Str::replace("/", "\\", $this->image));
+            if (file_exists($image)) {
+                return asset( $this->image);
+            }
+            $image = storage_path('app\\public\\' . Str::replace("/", "\\", $this->image));
+            if (file_exists($image)) {
+                return asset('storage/' . $this->image);
+            }
+        }
+        return null;
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function tags() {
+        return $this->belongsToMany(Tag::class);
+    }
 }

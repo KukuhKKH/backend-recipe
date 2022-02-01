@@ -26,8 +26,8 @@ class CategoryRepository {
 
             $query = $this->model->query();
             $query = $this->pagination($query, $column, $search, $sort, $sortBy);
-            if($limit && $offset == null) return $query->paginate($limit);
-            elseif($limit > 0 && $offset) $query->skip($offset)->take($limit);
+            if($limit && $offset === null) return $query->paginate($limit);
+            elseif($limit > 0 && $offset != null) $query->skip($offset)->take($limit);
             return $query->get();
         } catch(\Exception $e) {
             throw $e; report($e); return $e;
