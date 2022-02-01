@@ -4,8 +4,13 @@
     </h1>
     <hr class="mb-4">
     <div class="card">
-        <div class="card-header">
-            <Link :href="route('category.create')" class="btn btn-primary"><i class="far fa-plus"></i> Tambah Kateogri</Link>
+        <div class="card-header d-flex justify-content-between">
+            <div>
+                <Link :href="route('category.create')" class="btn btn-primary"><i class="far fa-plus"></i> Tambah Kateogri</Link>
+            </div>
+            <div>
+                <app-search-filter v-model="form.search" @reset="reset"/>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-hover">
@@ -44,13 +49,25 @@
 
 <script>
     import { Link } from '@inertiajs/inertia-vue3'
+    import throttle from 'lodash/throttle'
+    import pickBy from 'lodash/pickBy'
+    import mapValues from 'lodash/mapValues'
     import LayoutApp from '../../Layouts/App.vue'
     import Pagination from '../../Components/Shared/Pagination'
+    import SearchFilter from '../../Components/Shared/SearchFilter'
 
     export default {
         layout: LayoutApp,
         props: {
-            categories: Array
+            categories: Array,
+            filters: Object
+        },
+        data() {
+            return {
+                form: {
+                    search: this.filters.search
+                }
+            }
         },
         methods: {
             destroy(id) {
@@ -75,7 +92,21 @@
         },
         components: {
             'app-pagination' : Pagination,
+            'app-search-filter' : SearchFilter,
             'Link' : Link
+        },
+        watch: {
+            form: {
+                deep: true,
+                handler: throttle(function() {
+                    this.$inertia.get(route('category.index'), pickBy(this.form), { preserveState: true })
+                }, 150)
+            }
+        },
+        methods: {
+            reset() {
+                this.form = mapValues(this.form, () => null)
+            },
         }
     }
 </script>

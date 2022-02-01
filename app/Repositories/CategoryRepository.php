@@ -22,9 +22,10 @@ class CategoryRepository {
             $sort = $request['sort'] ?? 'id';
             $sortBy = $request['sort_by'] ?? 'desc';
             $column = ["name", "recomendation"];
+            $search = $request['search'] ?? '';
 
             $query = $this->model->query();
-            $query = $this->pagination($query, $column, '', $sort, $sortBy);
+            $query = $this->pagination($query, $column, $search, $sort, $sortBy);
             if($limit && $offset == null) return $query->paginate($limit);
             elseif($limit > 0 && $offset) $query->skip($offset)->take($limit);
             return $query->get();
