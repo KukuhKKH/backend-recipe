@@ -23968,16 +23968,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/vue-sweetalert.umd.js");
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
+/* harmony import */ var _methodsMixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./methodsMixin */ "./resources/js/methodsMixin.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
 
 
-moment__WEBPACK_IMPORTED_MODULE_3___default().locale('id');
+
+moment__WEBPACK_IMPORTED_MODULE_4___default().locale('id');
 
 var el = document.getElementById('app');
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)({
@@ -23993,33 +23995,7 @@ var el = document.getElementById('app');
     });
   }
 }).mixin({
-  methods: {
-    route: window.route,
-    textLimiterFilter: function textLimiterFilter(value) {
-      return value.substr(0, 30) + '...';
-    },
-    dateFilter: function dateFilter(value) {
-      return moment__WEBPACK_IMPORTED_MODULE_3___default()(value).format('LL LT');
-    },
-    capitalizeFilter: function capitalizeFilter(value) {
-      return value.charAt(0).toUpperCase() + value.slice(1);
-    },
-    moneyFilter: function moneyFilter(value) {
-      var number_string = value.toString().replace(/[^,\d]/g, '');
-      var split = number_string.split(',');
-      var sisa = split[0].length % 3;
-      var rupiah = split[0].substr(0, sisa);
-      var ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-      if (ribuan) {
-        var seperator = sisa ? '.' : '';
-        rupiah += seperator + ribuan.join('.');
-      }
-
-      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-      return 'Rp. ' + rupiah + ',-';
-    }
-  }
+  methods: _methodsMixin__WEBPACK_IMPORTED_MODULE_3__["default"]
 }).use(_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.plugin).use((vue_sweetalert2__WEBPACK_IMPORTED_MODULE_2___default())).mount(el);
 
 /***/ }),
@@ -24052,6 +24028,47 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/methodsMixin.js":
+/*!**************************************!*\
+  !*** ./resources/js/methodsMixin.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  route: window.route,
+  textLimiterFilter: function textLimiterFilter(value) {
+    return value.substr(0, 30) + '...';
+  },
+  dateFilter: function dateFilter(value) {
+    return moment(value).format('LL LT');
+  },
+  capitalizeFilter: function capitalizeFilter(value) {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  },
+  moneyFilter: function moneyFilter(value) {
+    var number_string = value.toString().replace(/[^,\d]/g, '');
+    var split = number_string.split(',');
+    var sisa = split[0].length % 3;
+    var rupiah = split[0].substr(0, sisa);
+    var ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+      var seperator = sisa ? '.' : '';
+      rupiah += seperator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return 'Rp. ' + rupiah + ',-';
+  }
+});
 
 /***/ }),
 
