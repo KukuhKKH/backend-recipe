@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\PostStoreRequest;
+use App\Http\Requests\Post\PostUpdateRequest;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PostRepository;
 use App\Traits\SerializeDatabaseTrait;
@@ -77,19 +78,31 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = $this->categoryRepository->all(null, 1000, 0);
+        $levels = $this->levelColumn();
+        $post = $this->postRepository->show($id);
+        return Inertia::render('Post/Edit', [
+            'categories' => $categories,
+            'levels' => $levels,
+            'post' => $post
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\PostUpdateRequest  $postUpdateRequest
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostUpdateRequest $postUpdateRequest, $id)
     {
-        //
+        try {
+            $this->postRepository->update($postUpdateRequest->all(), $id);
+            return Redirect::route('post.index')->with('success', "Berhasil Mengubah Resep Masakan");
+        } catch(\Exception $e) {
+            return Redirect::back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -100,6 +113,22 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->postRepository->destroy($id);
+            return Redirect::route('post.index')->with('success', "Berhasil Menghapus Resep Masakan");
+        } catch(\Exception $e) {
+            return Redirect::back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function step($id) {
+        $post = $this->postRepository->show($id, ['step']);
+        return Inertia::render('Step/Index', [
+            'post' => $post
+        ]);
+    }
+
+    public function ingredient($id) {
+        return Inertia::render('Post/Ingredient');
     }
 }

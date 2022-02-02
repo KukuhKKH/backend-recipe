@@ -27,6 +27,11 @@ class Post extends Model
         self::saving(function($model) {
             $model->slug = Str::slug($model->name);
         });
+
+        static::deleting(function($model) {
+            $model->step()->delete();
+            $model->ingredient()->delete();
+        });
     }
 
     public function getImageUrlAttribute() {
@@ -53,5 +58,13 @@ class Post extends Model
 
     public function tags() {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function step() {
+        return $this->hasMany(Step::class);
+    }
+
+    public function ingredient() {
+        return $this->hasMany(Ingredient::class);
     }
 }

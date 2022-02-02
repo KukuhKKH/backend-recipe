@@ -32,6 +32,8 @@
                             <img :src="post.image_url" alt="404 Not Found" class="img-fluid img-thumbnail">
                         </th>
                         <td scope="row">
+                            <Link :href="route('post.step', post.id)" class="btn btn-sm btn-outline-theme"><i class="fas fa-plus"></i> Langkah</Link>
+                            <Link :href="route('post.ingredient', post.id)" class="btn btn-sm btn-outline-theme"><i class="fas fa-plus"></i> Bahan</Link>
                             <Link :href="route('post.edit', post.id)" class="btn btn-sm btn-warning"><i class="fas fa-pencil"></i></Link>
                             <button @click="destroy(post.id)" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                         </td>

@@ -29,7 +29,8 @@
                     <span class="menu-text">Tag</span>
                 </Link>
             </div>
-            <div class="menu-item" :class="isUrl('dashboard/master/user') ? 'active' : ''">
+            <div class="menu-header">Pengguna</div>
+            <div class="menu-item" :class="isUrl('dashboard/user/user') ? 'active' : ''">
                 <Link :href="route('user.index')" class="menu-link">
                     <span class="menu-icon"><i class="fas fa-users"></i></span>
                     <span class="menu-text">Pengguna</span>
