@@ -53,7 +53,8 @@
         props: {
             'categories': Array,
             'levels': Array,
-            'post': Object
+            'post': Object,
+            'tags': Array
         },
         data() {
             return {

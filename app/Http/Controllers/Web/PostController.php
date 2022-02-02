@@ -7,6 +7,7 @@ use App\Http\Requests\Post\PostStoreRequest;
 use App\Http\Requests\Post\PostUpdateRequest;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PostRepository;
+use App\Repositories\TagRepository;
 use App\Traits\SerializeDatabaseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -45,12 +46,15 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tagRepository = new TagRepository();
         $categories = $this->categoryRepository->all(null, 1000, 0);
         $levels = $this->levelColumn();
+        $tags = $tagRepository->all(null, 1000, 0);
         if(count($categories) <= 0) return Redirect::back()->with('error', 'Kategori Belum Dibuat');
         return Inertia::render('Post/Create', [
             'categories' => $categories,
-            'levels' => $levels
+            'levels' => $levels,
+            'tags' => $tags
         ]);
     }
 
@@ -78,13 +82,16 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $tagRepository = new TagRepository();
         $categories = $this->categoryRepository->all(null, 1000, 0);
         $levels = $this->levelColumn();
         $post = $this->postRepository->show($id);
+        $tags = $tagRepository->all(null, 1000, 0);
         return Inertia::render('Post/Edit', [
             'categories' => $categories,
             'levels' => $levels,
-            'post' => $post
+            'post' => $post,
+            'tags' => $tags
         ]);
     }
 

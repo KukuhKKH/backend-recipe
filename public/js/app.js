@@ -21420,7 +21420,8 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     'categories': Array,
     'levels': Array,
-    'post': Object
+    'post': Object,
+    'tags': Array
   },
   data: function data() {
     return {
