@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Step\CreateOrUpdateStepDetailRequest;
 use App\Http\Requests\Step\CreateOrUpdateStepRequest;
 use App\Repositories\PostRepository;
 use App\Repositories\StepRepository;
@@ -69,9 +70,25 @@ class StepController extends Controller
      * @return \Inertia\Render
      */
     public function detail($id) {
-        $post = $this->stepRepository->show($id);
+        $step = $this->stepRepository->show($id, ['detail', 'post']);
         return Inertia::render("Step/Detail", [
-            'post' => $post
+            'step' => $step
         ]);
+    }
+
+    /**
+     * Action to create or update step post.
+     *
+     * @param  CreateOrUpdateStepDetailRequest  $createOrUpdateStepDetailRequest
+     * @param Integer $step_id
+     * @return \Inertia\Render
+     */
+    public function detailUpdate(CreateOrUpdateStepDetailRequest $createOrUpdateStepDetailRequest, $step_id) {
+        try {
+            $this->stepRepository->createOrUpdateDetail($createOrUpdateStepDetailRequest->all(), $step_id);
+            return Redirect::route('post.step', $createOrUpdateStepDetailRequest->post_id)->with('success', 'Sukses Menambah / Mengubah Langkah Langkah');
+        } catch(\Exception $e) {
+            return Redirect::back()->with('error', $e->getMessage());
+        }
     }
 }

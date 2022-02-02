@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-primary" @click="addForm"><i class="fas fa-plus"></i> Tambah Step</button>
+    <button class="btn btn-theme" @click="addForm"><i class="fas fa-plus"></i> Tambah Langkah Langkah</button>
     <form @submit.prevent="update">
         <template v-if="formElement.length > 0">
             <div v-for="(element, index) in formElement" :key="index">

@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
         Route::put('step/update/{post_id}', [StepController::class, 'update'])->name('step.updateOrCreate');
         Route::delete('step/{id}', [StepController::class, 'destroy'])->name('step.destroy');
         Route::get('step/detail/{id}', [StepController::class, 'detail'])->name('step.detail');
+        Route::put('step/detail/{id}', [StepController::class, 'detailUpdate'])->name('step.detail.updateOrCreate');
     });
 
     Route::group(['prefix' => 'master'], function() {

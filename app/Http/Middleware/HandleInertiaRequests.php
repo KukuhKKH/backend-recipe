@@ -53,7 +53,10 @@ class HandleInertiaRequests extends Middleware
                         'image' => $request->user()->image
                     ] : null,
                 ];
-            }
+            },
+            'app' => [
+                'tinymce_token' => env('TINYMCE', false)
+            ]
         ]);
     }
 }
