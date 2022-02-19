@@ -1,26 +1,25 @@
-require('./bootstrap');
+require('./bootstrap')
 
 import { createApp, h } from 'vue'
-import { App, plugin } from '@inertiajs/inertia-vue3'
-import VueSweetalert2 from 'vue-sweetalert2'
+import { createInertiaApp } from '@inertiajs/inertia-vue3'
+import { InertiaProgress } from '@inertiajs/progress'
 import methodsMixin from './methodsMixin'
 import moment from 'moment'
 moment.locale('id')
 
-import 'sweetalert2/dist/sweetalert2.min.css'
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Recipe App'
 
-const el = document.getElementById('app')
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) => require(`./Pages/${name}.vue`),
+    setup({ el, app, props, plugin }) {
+        const appVue = createApp({ render: () => h(app, props) })
+            .use(plugin)
+            .mixin({ methods: { route } })
 
-createApp({
-    render: () => h(App, {
-        initialPage: JSON.parse(el.dataset.page),
-        resolveComponent: name => require(`./Pages/${name}`).default,
-        title: title => title ? `${title} - Recipe Application` : 'Recipe Application'
-    })
+        appVue.config.globalProperties.$filters = methodsMixin
+        return appVue.mount(el)
+    },
 })
-.mixin({
-    methods: methodsMixin,
-})
-.use(plugin)
-.use(VueSweetalert2)
-.mount(el)
+
+InertiaProgress.init({ color: '#4B5563' })

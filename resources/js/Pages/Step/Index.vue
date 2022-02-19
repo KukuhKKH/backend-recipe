@@ -34,6 +34,7 @@
 <script>
     import { Link } from '@inertiajs/inertia-vue3'
     import LayoutApp from '../../Layouts/App.vue'
+    import swal from 'sweetalert2'
 
     export default {
         layout: LayoutApp,
@@ -42,7 +43,7 @@
         },
         methods: {
             destroy(id) {
-                this.$swal({
+                swal.fire({
                     title: 'Apakah Anda Yakin ?',
                     text: "Ingin menghapus data ini!",
                     icon: 'warning',

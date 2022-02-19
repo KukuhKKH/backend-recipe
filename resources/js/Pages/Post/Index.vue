@@ -27,7 +27,7 @@
                     <tr v-for="post in posts.data" :key="post.id">
                         <app-numbering-table scope="row" v-bind:array="posts" v-bind:object="post"/>
                         <th scope="row">{{ post.category.name }}</th>
-                        <th scope="row">{{ textLimiterFilter(post.title) }}</th>
+                        <th scope="row">{{ $filters.textLimiterFilter(post.title) }}</th>
                         <th scope="row">
                             <img :src="post.image_url" alt="404 Not Found" class="img-fluid img-thumbnail">
                         </th>
@@ -54,6 +54,7 @@
     import Pagination from '../../Components/Shared/Pagination'
     import SearchFilter from '../../Components/Shared/SearchFilter'
     import NumeringTable from '../../Components/Shared/NumeringTable'
+    import swal from 'sweetalert2'
 
     export default {
         layout: LayoutApp,
@@ -70,7 +71,7 @@
         },
         methods: {
             destroy(id) {
-                this.$swal({
+                swal.fire({
                     title: 'Apakah Anda Yakin ?',
                     text: "Ingin menghapus data ini!",
                     icon: 'warning',

@@ -23,9 +23,11 @@ Route::get('/', function () {
     return redirect(route('dashboard.index'));
 })->name('home');
 
-
+/** Dashboard */
 Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    /** Recipe */
     Route::group(['prefix' => 'recipe'], function() {
         Route::resource("post", PostController::class)->except('show');
         Route::get('post/{id}/step', [PostController::class, 'step'])->name('post.step');
@@ -37,14 +39,20 @@ Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function() {
         Route::get('step/detail/{id}', [StepController::class, 'detail'])->name('step.detail');
         Route::put('step/detail/{id}', [StepController::class, 'detailUpdate'])->name('step.detail.updateOrCreate');
     });
+    /** End Recipe */
 
+    /** Master */
     Route::group(['prefix' => 'master'], function() {
         Route::resource("category", CategoryController::class)->except('show');
         Route::put('category/change-recomendation/{id}', [CategoryController::class, 'changeRecomendation'])->name('category.change');
         Route::resource("tag", TagController::class)->except('show');
     });
+    /** End Master */
 
+    /** User */
     Route::group(['prefix' => 'user'], function() {
         Route::resource("user", UserController::class)->except('show');
     });
+    /** End User */
 });
+/** End Dashboard */

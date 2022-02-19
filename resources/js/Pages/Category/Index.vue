@@ -56,6 +56,7 @@
     import Pagination from '../../Components/Shared/Pagination'
     import SearchFilter from '../../Components/Shared/SearchFilter'
     import NumeringTable from '../../Components/Shared/NumeringTable'
+    import swal from 'sweetalert2'
 
     export default {
         layout: LayoutApp,
@@ -72,7 +73,7 @@
         },
         methods: {
             destroy(id) {
-                this.$swal({
+                swal.fire({
                     title: 'Apakah Anda Yakin ?',
                     text: "Ingin menghapus data ini!",
                     icon: 'warning',
