@@ -26,13 +26,23 @@ class Post extends Model
     public static function boot() {
         parent::boot();
         self::saving(function($model) {
-            $model->slug = Str::slug($model->name);
+            $model->slug = Str::slug($model->title);
         });
 
         static::deleting(function($model) {
             $model->step()->delete();
             $model->ingredient()->delete();
         });
+    }
+
+    /**
+     * Scope a query to search by slug.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFindSlug($query, $slug) {
+        return $query->where("slug", $slug)->firstOrFail();
     }
 
     public function getImageUrlAttribute() {

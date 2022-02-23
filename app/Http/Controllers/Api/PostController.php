@@ -25,4 +25,13 @@ class PostController extends Controller
         );
         return response()->success($posts, "Berhasil Mendapatkan Post", 200);
     }
+
+    public function showSlug($slug) {
+        try {
+            $post = $this->postRepository->showBySlug($slug);
+            return response()->success($post, "Berhasil mendapatkan Post");
+        } catch(\Exception $e) {
+            return response()->error($e->getMessage(), $e->getCode());
+        }
+    }
 }

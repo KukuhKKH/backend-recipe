@@ -27,7 +27,7 @@
 
         <div class="float-end">
             <app-loading-button :loading="form.processing" class="btn btn-theme mx-2" type="submit">Ubah</app-loading-button>
-            <Link :href="route('category.index')" class="btn btn-warning">Kembali</Link>
+            <Link :href="route('post.index')" class="btn btn-warning">Kembali</Link>
         </div>
     </form>
 </template>

@@ -47,6 +47,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($model) {
+            $model->post()->delete();
+        });
+    }
+
     protected $appends = ["image_url"];
 
     public function setUsernameAttribute($value) {

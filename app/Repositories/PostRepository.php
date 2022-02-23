@@ -58,6 +58,30 @@ class PostRepository {
         }
     }
 
+    public function showBySlug($slug) {
+        try {
+            return $this->model->with(["category", "tags"])->findSlug($slug);
+        } catch(ModelNotFoundException $e) {
+            throw $e; report($e); return $e;
+        } catch(\Exception $e) {
+            throw $e; report($e); return $e;
+        }
+    }
+
+    public function searchByRelation($type, $keyword, $paginate = false) {
+        try {
+            $query = $this->model->query();
+            $query->whereHas($type, function($sub) use ($keyword) {
+                $sub->where("name", "LIKE", "%$keyword%");
+            });
+            $query->with("category", "tags");
+            if($paginate['pagination'] == "true") return $query->paginate(10);
+            return $query->get();
+        } catch(\Exception $e) {
+            throw $e; report($e); return $e;
+        }
+    }
+
     public function update($request, $id) {
         try {
             $post = $this->model->find($id);
